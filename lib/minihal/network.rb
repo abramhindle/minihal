@@ -2,7 +2,7 @@ module Minihal
   class Network
     def initialize
       @values  = []
-      @weights = Hash.new
+      @weights = Hash.new { |hash, key| hash[key] = 0 }
     end
 
     def [](value)
@@ -11,11 +11,7 @@ module Minihal
 
     def increment(value)
       @values << value
-      if @weights[value]
-        @weights[value] += 1
-      else
-        @weights[value] = 1
-      end
+      @weights[value] += 1
     end
     
     def next

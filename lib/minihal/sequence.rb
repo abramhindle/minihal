@@ -1,19 +1,26 @@
 module Minihal
   class Sequence < Array
     def self.from_sentence(sentence)
-      returning new do |sequence|
-        sentence.strip.split.each do |word|
-          word, punctuation = word.scan(/(.*?)([.,?!]*)$/).first
-          sequence << word.downcase
-          punctuation.split.each do |char|
-            sequence << case char
-              when "." then Tokens::TOKEN_PERIOD
-              when "," then Tokens::TOKEN_COMMA
-              when "?" then Tokens::TOKEN_QUESTION
-              when "!" then Tokens::TOKEN_EXCLAMATION
-            end
+      sentence.strip.split.inject(new) do |sequence, word|
+        word, punctuation = word.scan(/(.*?)([.,?!]*)$/).first
+        sequence << word.downcase
+        punctuation.split.each do |char|
+          sequence << case char
+            when "." then Tokens::TOKEN_PERIOD
+            when "," then Tokens::TOKEN_COMMA
+            when "?" then Tokens::TOKEN_QUESTION
+            when "!" then Tokens::TOKEN_EXCLAMATION
           end
         end
+        sequence
+      end
+    end
+
+    def each_pair
+      left, rest = Minihal.begin, self + [Minihal.end]
+      rest.each do |right|
+        yield left, right
+        left = right
       end
     end
 
