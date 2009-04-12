@@ -12,11 +12,3 @@ module Kernel
     value
   end unless defined?(returning)
 end
-
-module Minihal
-  def self.string_to_sequences(string)
-    string.gsub(/([.!?])(\s)/, "\\1\\1\\2").split(/(?:[.!?])\s+/).map do |sentence|
-      Sequence.from_sentence(sentence)
-    end
-  end
-end

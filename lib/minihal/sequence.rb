@@ -22,4 +22,10 @@ module Minihal
       sentence.join(" ").sub(/[[:alpha:]]/) { |char| char.upcase }
     end
   end
+
+  def self.string_to_sequences(string)
+    string.gsub(/([.!?])(\s)/, "\\1\\1\\2").split(/(?:[.!?])\s+/).map do |sentence|
+      Sequence.from_sentence(sentence)
+    end
+  end
 end
