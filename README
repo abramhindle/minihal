@@ -1,0 +1,7 @@
+% irb -r lib/minihal
+>> brain = Minihal::Brain.new
+=> #<Minihal::Brain:0x5e1e24 @network={}>
+>> Minihal.string_to_sequences(IO.read("ulysses.txt")).each { |sequence| brain.learn(sequence) }; nil
+=> nil
+>> brain.query.to_sentence
+=> "He winked in a good stock of rock, sigh the other in the path of innumerable quires and marvellous exhibition of her voice: one sees us today i oughtnt to reflect."
