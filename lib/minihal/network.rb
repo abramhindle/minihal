@@ -1,6 +1,7 @@
 module Minihal
   class Network
     def initialize
+      @values  = []
       @weights = Hash.new
     end
 
@@ -9,6 +10,7 @@ module Minihal
     end
 
     def increment(value)
+      @values << value
       if @weights[value]
         @weights[value] += 1
       else
@@ -16,19 +18,8 @@ module Minihal
       end
     end
     
-    def values
-      @weights.values
-    end
-    
     def next
-      values = to_a
-      values[rand(values.length)]
-    end
-    
-    def to_a
-      @weights.inject([]) do |values, (value, weight)|
-        values += [value] * weight
-      end
+      @values[rand(@values.length)]
     end
   end
 end
