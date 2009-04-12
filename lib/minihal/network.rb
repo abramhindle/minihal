@@ -16,14 +16,6 @@ module Minihal
       end
     end
     
-    def decrement(value)
-      if (@weights[value] -= 1).zero?
-        @weights.delete(value)
-      else
-        @weights[value] -= 1
-      end
-    end
-    
     def values
       @weights.values
     end
