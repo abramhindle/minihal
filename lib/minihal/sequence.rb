@@ -25,8 +25,12 @@ module Minihal
     end
 
     def to_sentence
-      sentence = reject { |word| word.is_a?(Tokens::Delimiter) }
-      sentence.join(" ").sub(/[[:alpha:]]/) { |char| char.upcase }
+      returning [] do |sentence|
+        each_pair do |left, right|
+          sentence << " " if !left.is_a?(Tokens::Delimiter) && !right.is_a?(Token)
+          sentence << right.to_s unless right.is_a?(Tokens::Delimiter)
+        end
+      end.join.capitalize
     end
   end
 
