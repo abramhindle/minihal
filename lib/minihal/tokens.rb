@@ -10,4 +10,7 @@ module Minihal
     TOKEN_QUESTION    = Punctuation.new("?")
     TOKEN_EXCLAMATION = Punctuation.new("!")
   end
+
+  def self.begin; Tokens::TOKEN_BEGIN end
+  def self.end;   Tokens::TOKEN_END   end
 end

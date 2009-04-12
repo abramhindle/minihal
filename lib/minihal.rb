@@ -14,9 +14,6 @@ module Kernel
 end
 
 module Minihal
-  def self.begin; Tokens::TOKEN_BEGIN end
-  def self.end;   Tokens::TOKEN_END   end
-    
   def self.string_to_sequences(string)
     string.gsub(/([.!?])(\s)/, "\\1\\1\\2").split(/(?:[.!?])\s+/).map do |sentence|
       Sequence.from_sentence(sentence)
