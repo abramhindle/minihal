@@ -13,7 +13,7 @@ module Minihal
     end
     
     def query(value = Minihal.begin)
-      returning Sequence.new do |sequence|
+      returning Sequence.new([value]) do |sequence|
         sequence << value while value = network[value].next
       end
     end
