@@ -30,3 +30,44 @@ Minihal.string_to_sequences_delegate(MusicSequence, song).each { |sequence|
 }
 
 puts music.query.infer_sequence.join
+
+### Now with "symbols" only
+
+symbolic_music = Minihal::Brain.new
+
+class Note
+end
+class A < Note
+end
+class B < Note
+end
+class C < Note
+end
+class D < Note
+end
+class E < Note
+end
+class F < Note
+end
+class G < Note
+end
+class Quarter < Note
+end
+class Half < Note
+end
+class Full < Note
+end
+
+
+[[A, B, C, D],
+ [G, A, B, Quarter],
+ [B, B, Quarter, A],
+ [D, A, D, Quarter],
+ [F, A, G, Quarter],
+ [Full],
+ [Half, A, A],
+ [B, B, Half],
+].each { |seq| symbolic_music.learn(Minihal::Sequence.new(seq)) }
+
+
+6.times {|n| puts symbolic_music.query.infer_sequence.map {|x| x.to_s }.join }
